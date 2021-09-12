@@ -1,7 +1,9 @@
 ---
 title: Setup
 ---
-FIXME
+
+- Conda env
+- Download data from XXX
 
 
 {% include links.md %}
