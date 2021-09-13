@@ -1,5 +1,5 @@
 ---
-title: "Assembly"
+title: "Cross-assembly"
 teaching: 0
 exercises: 0
 questions:
@@ -14,24 +14,55 @@ keypoints:
 
 In cross-assembly, **multiple datasets are combined and assembled together**, allowing the discovery of shared sequence elements between the assembled contigs. For this exercise we will use _de novo_ cross-assembly, where the sequences of all samples are assembled together. This implies that if a virus (or other sequence element) is present in several different samples, its sequencing reads from the different samples will be joined into one contig. We will look for viruses that are present in many people. To do that, we will map the reads back to the cross-assembly and obtain the abundance profiles of each contig across the samples. If we find a contig that aligns reads from all twelve samples, this would mean that all the samples share that viral sequence.
 
-~~~
-# first create the directory and move the file to it
-$ mkdir 0_Raw-data
-$ cp Reyes_fasta.tgz 0_Raw-data
+First thing you need to do is putting sequences from all samples in the same FASTA file so they can be assembled as one single sample. We will use `cat` command as follows for this:
 
-# move to the directory and uncompress the file
-$ tar zxvf Reyes_fasta.tgz
+~~~
+# 'fna' and 'fasta' are both valid extensions for FASTA files
+$ cat 0_Raw-data/*.fna > all_samples.fasta
 ~~~
 {: .bash}
 
-We have prepared a python script for you to get basic statistics about the sequencing data, such as the number of reads per sample, or their maximum and minimum length. Run the script as indicated below. **Which are the samples with the maximum and minimum number of sequences? In overall, which are the mean, maximum and minimum lengths of the sequences?**
+> ## Challenge: Number of sequences in `all_samples.fasta`
+> You just concatenated the 12 FASTA files, one per sample, into one sigle FASTA file. To be sure that everything went well, count the number of sequences in this new file using the command line.
+>
+>
+> **Hint**
+> ~~~
+> # prints a count of matching lines for each input file.
+> $ grep -c
+> ~~~
+>
+> > ## Solution
+> >
+> >
+> > ~~~
+> > $ grep -c '>' all_samples.fasta
+> >  1143453
+> > ~~~
+> {: .solution}
+{: .challenge}
+
+
+We will use the assembler program SPAdes ([Bankevich et al J Comput Biol 2012](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3342519/)), which is based on de Bruijn graph assembly from kmers and allows for uneven depths, making it suitable for metagenome assembly and assembly of randomly amplified datasets. As stated above, this cross-assembly will combine the metagenomic sequencing reads from all twelve viromes into contigs. Because of the data we have, we will run SPAdes with parameters `--iontorrent` and `--only-assembler`, and parameters `-s` and `-o` for the input and output. While the command is running (around 10 minutes) try to solve questions below.
 
 ~~~
-$ python3 fasta_statistics.py -i 0_Raw-data
+# create a directory to store the SPAdes output and run the (cross)assembly step
+$ spades.py -s all_samples.fasta -o 1_cross-assembly/spades_output --iontorrent --only-assembler
 ~~~
 
+Ion Torrent is a sequencing platform, same as 454, the platform used to sequence the data you are using. Note well we used `--iontorrent` parameter when running SPAdes. This is because there is not a parameter `--454` to accomodate for the peculiarities of this platform, and the most similar is Ion Torrent. Specifically, both platforms are prone to errors in **homopolymeric regions**. Watch [this video](https://www.youtube.com/watch?v=sdxVDy0lSAE) (if you did not in previous chapter) from minute 06:50, and explain **what is an homopolymeric region, and how exactly the Ion Torrent and 454 platforms fail on them**
 
+Regarding the `--only-assembler` parameter, we use it to avoid the read error correction step, where the assembler tries to correct single base errors in the reads by looking at the k-mer frequency and quality scores. **Why are we skipping this step?**
 
-Next step is to put together all these short sequences to reconstruct larger genomic fragments in a process called **assembly**. More specifically, we will be doing a **cross-assembly**.
+If assembly finished, final scaffolds should be under `1_cross-assembly/spades_output/scaffolds.fasta`. We will rename the file using `mv` and get some statistics with the python script `fasta_statistics.py`
+
+~~~
+$ mv 1_cross-assembly/spades_output/scaffolds.fasta 1_cross-assembly/cross-scaffolds.fasta
+$ python fasta_statistics.py 1_cross-assembly/
+~~~
+
+**How many scaffolds were assembled? How long are the longest or the shortest?**
+
+These are the results of assembling the reads from all samples together. But we don't know (yet) which is the source sample for each scaffold. Could there be one coming from multiple samples?
 
 {% include links.md %}
