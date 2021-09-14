@@ -64,6 +64,6 @@ $ samtools sort -o all_samples_cross_sorted.bam all_samples_cross.bam
 $ samtools index all_samples_cross_sorted.bam
 ~~~  
 
-At this point we have a BAM file with each read aligned to one scaffold, as in the table at the beginning of the section. In the next section we will create such table and look for scaffolds present in more than one sample.
+At this point we have a BAM file with each read aligned to one scaffold, as in the table at the beginning of the section. In the next section we will create such table and how the the scaffolds are distributed across the samples.
 
 {% include links.md %}
