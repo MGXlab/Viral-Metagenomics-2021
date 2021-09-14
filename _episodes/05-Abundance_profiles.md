@@ -26,7 +26,7 @@ $ python scripts/bam_to_profile.py -b all_samples_cross_sorted.bam -o 3_profiles
 
 The number of reads aligned to a scaffold reflects its abundance (ie. the abundance of the species) in the sample. The more present a species is in a sample, the more sequencing reads is going to obtain during the sequencing process. However, note well the counts itself do not represent the **relative abundance** in the sample. To know this we need to normalize by the **total number of sequencing reads** in the sample and the **length of the scaffold** as follows:
 
-![equation](http://www.sciweavers.org/tex2img.php?eq=Rel.abundance%20%3D%20%20%5Cfrac%7BMappedReads%7D%7BTotalReads%2AScaffoldLength%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
+![equation](<img src="http://www.sciweavers.org/tex2img.php?eq=Rel.abundance%20%3D%20%20%5Cfrac%7BMappedReads%7D%7BTotalReads%2AScaffoldLength%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="Rel.abundance =  \frac{MappedReads}{TotalReads*ScaffoldLength} " width="411" height="47" />)
 
 Related to the discussion above, it is interesting to look at the relative abundance of the scaffolds in a sample because scaffolds coming from the same species should have the same (or similar at least) relative abundance. It this way, we can group scaffolds in **bins** representing a genome in a process called **binning**.
 
