@@ -40,5 +40,6 @@ Related to the discussion above, it is interesting to look at the abundance of t
 
 In the next section we will use the abundances across all the samples to bin our scaffolds.
 
+![Image]({{ page.root }}/fig/test_assembly.png)
 
 {% include links.md %}
