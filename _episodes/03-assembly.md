@@ -54,14 +54,11 @@ Ion Torrent is a sequencing platform, same as 454, the platform used to sequence
 
 Regarding the `--only-assembler` parameter, we use it to avoid the read error correction step, where the assembler tries to correct single base errors in the reads by looking at the k-mer frequency and quality scores. **Why are we skipping this step?**
 
-If assembly finished, final scaffolds should be under `1_cross-assembly/spades_output/scaffolds.fasta`. We will rename the file using `mv` and get some statistics with the python script `fasta_statistics.py`
-
+If assembly finished, final scaffolds should be under `1_cross-assembly/spades_output/scaffolds.fasta`. We will rename the file using `mv` and get some statistics with the python script `fasta_statistics.py`. **How many scaffolds were assembled? How long are the longest and shortest?**
 ~~~
 $ mv 1_cross-assembly/spades_output/scaffolds.fasta 1_cross-assembly/cross-scaffolds.fasta
 $ python fasta_statistics.py 1_cross-assembly/
 ~~~
-
-**How many scaffolds were assembled? How long are the longest or the shortest?**
 
 These are the results of assembling the reads from all samples together. But we don't know (yet) which is the source sample for each scaffold. Could there be one coming from multiple samples?
 
