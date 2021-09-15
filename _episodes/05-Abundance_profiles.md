@@ -35,7 +35,7 @@ Related to the discussion above, it is interesting to look at the abundance of t
 
 >## Discussion: Binning
 > We just saw how relative abundance can be used to gather scaffolds into a bin. But, what would you do to bin <span style="color:yellow">**yellow**</span>, <span style="color:blue">**blue**</span> and <span style="color:magenta">**pink**</span> scaffolds? They have the abundance. Can you think of other features useful for binning?
-{: .challenge}
+{: .discussion}
 
 In the next section we will use the abundances across all the samples to bin our scaffolds.
 

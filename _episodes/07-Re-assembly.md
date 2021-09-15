@@ -1,0 +1,46 @@
+---
+title: "Re-assembly"
+teaching: 0
+exercises: 0
+questions:
+- ""
+objectives:
+- ""
+keypoints:
+- ""
+---
+
+In this section we will try to get a complete genome from the scaffolds of our bin. For this, we will do another assembly as follows:
+- Using the binned scaffolds as a _backbone_ to guide the assembler
+- Using only one sample to minimize between-sample heterogeneity and microorganisms' diversity. Both factors make more difficult for the assembler to get a contiguous, complete genome.
+
+>## Discussion: Sample for the re-assembly
+> Look at the heatmap in `3_profiles/heatmap.png` and explain what you see. With which sample do you think it will be easier for the assembler to reconstruct the complete genome?
+{: .challenge}
+
+We will use SPAdes with the same parameters as in the cross-assembly, but also with `--trusted-contigs` for the binned scaffolds. This time it should take only one or two minutes.
+
+~~~
+# run SPAdes
+$ spades.py --iontorrent --only-assembler --trusted-contigs 3_profiles/scaffolds_corr_90.fasta --careful -s 0_fasta_samples/F2T1.fasta -o 4_re-assembly/spades_output
+
+# inspect the results by looking at the re-assembled scaffolds identifiers
+$ grep '>' 4_re-assembly/spades_output/scaffolds.fasta | head
+~~~
+
+To know if our binned scaffolds are contained in any scaffold of the re-assembly, we will use BLAST locally. The database will be the scaffolds from the re-assembly, and we will BLAST the binned scaffolds to them to see if there is any getting most of the matches. First we need to build the database with `makeblastdb`, and then do the actual BLAST with `blastn`.
+
+~~~
+# build the database
+$ makeblastdb -in 4_re-assembly/reass_scaffolds.fasta -out 4_re-assembly/reass_scaffolds.blastdb -dbtype nucl
+
+# run BLAST
+blastn -db 4_re-assembly/reass_scaffolds.blastdb -query 3_profiles/scaffolds_corr_90.fasta -out 4_re-assembly/corr_scaffolds_to_reass.txt -outfmt 6
+~~~
+
+Open `4_re-assembly/corr_scaffolds_to_reass.txt` to inspect the results. Each line represents an alignment between a binned scaffold (or **query**, first column) and a re-assembled scaffold from the database (or **subject**, second column). Interesting columns to look at are the **%similarity** (column 3), **alignment length** (column 4), **evalue** (column 11) or **bitscore** (column 12).
+
+If everything went well, you should see that one of re-assembled scaffolds contains most of the scaffolds of the bin. 
+
+
+{% include links.md %}

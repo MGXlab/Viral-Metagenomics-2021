@@ -5,9 +5,6 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 ---
 Welcome to Viral Metagenomics Workshop 2021
 
-> ## Prerequisites
-> Be sure to check the Setup section
->
-{: .prereq}
+
 
 {% include links.md %}

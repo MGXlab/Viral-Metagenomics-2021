@@ -26,7 +26,7 @@ Look at the table below, with the mean depth of coverage for each scaffold in ea
 
 Now we are going to bin our scaffolds, but not all of them: we will focus on those that are present in most of the samples, and look for others with a similar abundance profile, ie. a similar pattern of abundance across the samples. For this, you will select one of the most ubiquitous contigs printed in the terminal in the previous section, and use the script `profiles_correlation.py` to find other scaffolds with highly correlating depth profiles (>0.9 Pearson). **Those highly correlating with the scaffold you selected are likely to be part of the same bin**.
 
-Script `bam_to_profile.py` from previous section also gave a file called `profiles_depth_length_corrected.txt`, with the number of reads aligned to each scaffold in each sample, normalized by the length of the scaffolds and the number of sequencing reads in the sample. We will use these normalized abundances as input for the script `profiles_correlation.py`, along with the identifier of the scaffold of your choice via the parameter `-s`. Output file is a tabular file called `scaffolds_corr_90.txt` with two columns, the first containing the scaffolds IDs and the second the correlation score. We will dump the first column to the file `scaffolds_corr90_ids.txt` using `cut`.
+Script `bam_to_profile.py` from previous section also gave a file called `profiles_depth_length_corrected.txt`, with the number of reads aligned to each scaffold in each sample, normalized by the length of the scaffolds and the number of sequencing reads in the sample. We will use these normalized abundances as input for the script `profiles_correlation.py`, along with the identifier of the scaffold of your choice via the parameter `-s`. Output file is a tabular file called `scaffolds_corr_90.txt` with two columns, the first containing the scaffolds IDs and the second the correlation score. We will dump the first column to the file `scaffolds_corr90_ids.txt` using `cut`, and use the `seqtk` program to grab their sequences from the original cross-assembly.
 
 ~~~
 # find which scaffolds correlate well with yours
@@ -37,7 +37,14 @@ $ cut -f1 3_profiles/scaffolds_corr_90.txt > 3_profiles/scaffolds_corr_90_ids.tx
 
 # how many scaffolds do we have in the bin?
 $ wc -l 3_profiles/scaffolds_corr_90_ids.txt
+
+# extract the sequence of the scaffolds
+$ seqtk subseq 1_cross-assembly/cross_scaffolds.fasta 3_profiles/scaffolds_corr_90_headers.txt > 3_profiles/scaffolds_corr_90.fasta
 ~~~
+
+>## Challenge: BLAST one of the scaffolds
+> BLAST (Basic Local Alignment Search Tool) has become so important in bioinformatics that has its own verb, _to blast_ something. In its [online version](https://blast.ncbi.nlm.nih.gov/Blast.cgi) you can check if there is any sequence similar to your scaffolds in the public databases. Choose one of them and _blast_ it. Is there any hit? If so, to which organism?
+{: .challenge}
 
 So, we have a set of scaffolds that seem to come from the same genome. In the next section we will try to reconstruct it.
 

@@ -16,14 +16,15 @@ In this exercise you will analyze viral metagenomes derived from twelve human gu
 
 Raw sequencing data is usually stored in FASTQ format, which contains the sequence itself and the quality of each base. Check out [this video](https://www.youtube.com/watch?v=sdxVDy0lSAE) to get more insight into the sequencing process and FASTQ format. To make things faster, the data you are going to analyze today is in FASTA format, which does not contain the quality information. In the FASTA format we call _header_, _identifier_ or just _name_ to the line that precedes the nucleotide or aminoacid sequence. It always start with the `>` symbol and should be unique for each sequence.
 
-Let's get started by uncompressing the file file with the sequencing data into a directory called `0_Raw-data`.
+Let's get started by downloading and unzipping the file file with the sequencing data in a directory called `0_Raw-data`.
 
 ~~~
-# first create the directory and move the file to it
+# create the directory and move to it
 $ mkdir 0_Raw-data
-$ cp Reyes_fasta.tgz 0_Raw-data
+$ cd 0_Raw-data
 
-# move to the directory and uncompress the file
+# download and unzip
+$ wget https://tbb.bio.uu.nl/dutilh/courses/CABBIO/Reyes_fasta.tgz
 $ tar zxvf Reyes_fasta.tgz
 
 # show the first 10 lines of a FASTA file
