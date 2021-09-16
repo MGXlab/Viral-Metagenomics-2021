@@ -1,12 +1,12 @@
 ---
 title: "Introduction"
-teaching: 0
+teaching: 10
 exercises: 0
 questions:
 - "What is _metagenomics_"
 - "What do we call _viral dark matter_"
 objectives:
-- "TODO"
+- "Understanding what is a metagenomic study"
 keypoints:
 - "Metagenomics is the culture-independent study of the collection of genomes from different microorganisms present in a complex sample."
 - "We call _dark matter_ to the sequences that don't match to any other known sequence in the databases."

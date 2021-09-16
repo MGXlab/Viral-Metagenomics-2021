@@ -1,13 +1,13 @@
 ---
 title: "Abundance profiles"
-teaching: 0
-exercises: 0
+teaching: 15
+exercises: 15
 questions:
-- ""
+- "How does the number of reads aligned relate to the abundance of the scaffold?"
 objectives:
-- ""
+- "Identify scaffolds present in many samples."
 keypoints:
-- ""
+- "Generally, the higher the number of reads aligned to a scaffold, the higher its abundance in a sample."
 ---
 
 To start off, we will run the python script `bam_to_profile.py` to get a counts table like the one showed in the previous section. It will print in the terminal the 15 most ubiquitous scaffolds, ie. the scaffolds that are present in more samples. **What does the column _nsamples_ mean? Which sample seems to be different?**
@@ -31,14 +31,12 @@ In the sample below, <span style="color:red">**red**</span> species is the most 
 ![Image]({{ page.root }}/fig/depth.png)
 
 
-Related to the discussion above, it is interesting to look at the abundance of the scaffolds in a sample because scaffolds coming from the same species should have the similar abundances (or depths of coverage, remember they are directly related). It this way, we can group scaffolds in **bins** representing a genome in a process called **binning**.
+Related to the discussion above, it is interesting to look at the abundance of the scaffolds in a sample because scaffolds coming from the same species should have similar abundances (or depths of coverage, remember they are directly related). It this way, we can group scaffolds in **bins** representing a genome in a process called **binning**.
 
 >## Discussion: Binning
-> We just saw how relative abundance can be used to gather scaffolds into a bin. But, what would you do to bin <span style="color:yellow">**yellow**</span>, <span style="color:blue">**blue**</span> and <span style="color:magenta">**pink**</span> scaffolds? They have the abundance. Can you think of other features useful for binning?
+> We just saw how abundance can be used to gather scaffolds into a bin to have a more comprehensive representation of a genome. But, what would you do to bin <span style="color:yellow">**yellow**</span>, <span style="color:blue">**blue**</span> and <span style="color:magenta">**pink**</span> scaffolds? Note well they have the same abundance. Can you think of other features useful for binning?
 {: .discussion}
 
 In the next section we will use the abundances across all the samples to bin our scaffolds.
-
-
 
 {% include links.md %}

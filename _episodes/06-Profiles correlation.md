@@ -1,11 +1,11 @@
 ---
 title: "Profiles correlation"
-teaching: 0
-exercises: 0
+teaching: 15
+exercises: 10
 questions:
-- ""
+- "How does including more samples affect the binning step?"
 objectives:
-- ""
+- "Find which scaffolds have similar depth profiles to the ubiquitous scaffold you have chosen."
 keypoints:
 - "Adding more samples with similar species diversity but different abundances increases the binning resolution."
 ---
@@ -24,9 +24,9 @@ Look at the table below, with the mean depth of coverage for each scaffold in ea
 | Scaffold 6 	|    4x    	|    3x    	|    9x    	|
 | Scaffold 7 	|    0x    	|    7x    	|    6x    	|
 
-Now we are going to bin our scaffolds, but not all of them: we will focus on those that are present in most of the samples, and look for others with a similar abundance profile, ie. a similar pattern of abundance across the samples. For this, you will select one of the most ubiquitous contigs printed in the terminal in the previous section, and use the script `profiles_correlation.py` to find other scaffolds with highly correlating depth profiles (>0.9 Pearson). **Those highly correlating with the scaffold you selected are likely to be part of the same bin**.
+Now we are going to bin our scaffolds, but not all of them: we will focus on those that are present in most of the samples, and look for others with a similar abundance profile, ie. a similar pattern of abundance across the samples. For this, you will select one of the most ubiquitous scaffolds printed in the terminal in the previous section, and use the script `profiles_correlation.py` to find other scaffolds with highly correlating depth profiles (>0.9 Pearson). **Those highly correlated with the scaffold you selected are likely to be part of the same bin**.
 
-Script `bam_to_profile.py` from previous section also gave a file called `profiles_depth_length_corrected.txt`, with the number of reads aligned to each scaffold in each sample, normalized by the length of the scaffolds and the number of sequencing reads in the sample. We will use these normalized abundances as input for the script `profiles_correlation.py`, along with the identifier of the scaffold of your choice via the parameter `-s`. Output file is a tabular file called `scaffolds_corr_90.txt` with two columns, the first containing the scaffolds IDs and the second the correlation score. We will dump the first column to the file `scaffolds_corr90_ids.txt` using `cut`, and use the `seqtk` program to grab their sequences from the original cross-assembly.
+Script `bam_to_profile.py` from previous section also gave a file called `profiles_depth_length_corrected.txt`, with the number of reads aligned to each scaffold in each sample, normalized by the length of the scaffolds and the number of sequencing reads in the sample. We will use these normalized abundances as input for the script `profiles_correlation.py`, along with the identifier of the scaffold of your choice via the parameter `-s`. Output file will be a tabular file called `scaffolds_corr_90.txt` with two columns, the first containing the scaffolds IDs and the second the correlation score. We will dump the first column to the file `scaffolds_corr90_ids.txt` using `cut`, and use the `seqtk` program to grab their sequences from the original cross-assembly.
 
 ~~~
 # find which scaffolds correlate well with yours

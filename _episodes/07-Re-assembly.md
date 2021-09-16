@@ -1,18 +1,19 @@
 ---
 title: "Re-assembly"
-teaching: 0
-exercises: 0
+teaching: 10
+exercises: 20
 questions:
 - ""
 objectives:
-- ""
+- "Run another assembly with the binned scaffolds."
+- "Check if the binned scaffolds are contained in any of the re-assembled scaffolds."
 keypoints:
-- ""
+- "If you got this far, you are a pro."
 ---
 
 In this section we will try to get a complete genome from the scaffolds of our bin. For this, we will do another assembly as follows:
 - Using the binned scaffolds as a _backbone_ to guide the assembler
-- Using only one sample to minimize between-sample heterogeneity and microorganisms' diversity. Both factors make more difficult for the assembler to get a contiguous, complete genome.
+- Using only one sample to minimize between-sample heterogeneity and microorganisms' diversity. Both factors make harder for the assembler to get a contiguous, complete genome.
 
 >## Discussion: Sample for the re-assembly
 > Look at the heatmap in `3_profiles/heatmap.png` and explain what you see. With which sample do you think it will be easier for the assembler to reconstruct the complete genome?
@@ -40,7 +41,9 @@ blastn -db 4_re-assembly/reass_scaffolds.blastdb -query 3_profiles/scaffolds_cor
 
 Open `4_re-assembly/corr_scaffolds_to_reass.txt` to inspect the results. Each line represents an alignment between a binned scaffold (or **query**, first column) and a re-assembled scaffold from the database (or **subject**, second column). Interesting columns to look at are the **%similarity** (column 3), **alignment length** (column 4), **evalue** (column 11) or **bitscore** (column 12).
 
-If everything went well, you should see that one of re-assembled scaffolds contains most of the scaffolds of the bin. 
+If everything went well, you should see that one of re-assembled scaffolds is around ~96Kb and contains most of the scaffolds of our bin. Open the FASTA file, look for that scaffold and Blast it online.
+
+Congratulations, you just rediscovered the crAssphage :)
 
 
 {% include links.md %}
