@@ -21,8 +21,8 @@ Let's get started by downloading and unzipping the file file with the sequencing
 
 ~~~
 # create the directory and move to it
-$ mkdir 0_Raw-data
-$ cd 0_Raw-data
+$ mkdir 0_raw-data
+$ cd 0_raw-data
 
 # download and unzip
 $ wget https://tbb.bio.uu.nl/dutilh/courses/CABBIO/Reyes_fasta.tgz
@@ -36,11 +36,15 @@ $ head F1M.fna
 We have prepared a python script for you to get basic statistics about the sequencing data, such as the number of reads per sample, or their maximum and minimum length. Run the script as indicated below. **Which are the samples with the maximum and minimum number of sequences? In overall, which are the mean, maximum and minimum lengths of the sequences?**
 
 ~~~
-$ python3 fasta_statistics.py -i 0_Raw-data
+# move to the root directory
+$ cd ..
+
+# run the pytho script. Remember you can access the help message of this script doing `python3 fasta_statistics.py -h`
+$ python python_scripts/fasta_statistics.py -i 0_raw-data/
 ~~~
 
 Look at how the samples are named. **Can you say if they are related in some way?** Check the paper ([Reyes et al Nature 2010](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2919852/)) to find it out.
 
-Next step is to put together all these short sequences to reconstruct larger genomic fragments in a process called **assembly**. More specifically, we will be doing a **cross-assembly**.
+Next step is to put together all these short sequences to reconstruct larger genomic fragments in a process called **assembly**. More specifically, we will be do a **cross-assembly**.
 
 {% include links.md %}
