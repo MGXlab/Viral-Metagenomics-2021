@@ -19,7 +19,7 @@ After primary processing including quality control of the sequencing data (which
 
 When the sample is composed mostly of viruses we talk of *metaviromics*. Viruses are the most abundant entities on earth and the majority of them are yet to be discovered. This means that the fraction of viruses that are described in the databases is a small representation of the actual viral diversity. Because of this, a high percentage of the sequencing data in metaviromic studies show no similarity with any sequence in the databases. We sometimes call this unknown, or at least uncharacterizable fraction *viral dark matter*. As additional viruses are discovered and described and we expand our view of the Virosphere, we will increasingly be able to understand the role of viruses in microbial ecosystems.
 
-In this exercise we will re-analyze original metaviromic sequencing data from 2010 to re-discover the most abundant bacteriophage in the human gut, the [crAssphage](https://en.wikipedia.org/wiki/crAssphage), which owe its name to the _cross-assembly_ procedure that allowed its discovery. Finally, we will characterize this phage by predicting its open reading frames and studying how it relates to other similar bacteriophages.  
+In this exercise we will re-analyze original metaviromic sequencing data from 2010 to re-discover the most abundant bacteriophage in the human gut, the [crAssphage](https://en.wikipedia.org/wiki/crAssphage), which owe its name to the _cross-assembly_ procedure that allowed its discovery. Let's get started!
 
 
 {% include links.md %}
