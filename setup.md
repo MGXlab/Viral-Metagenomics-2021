@@ -11,7 +11,7 @@ title: Setup
 
 
 > ## How to follow this course
-> - Along the lessons you will find specific questions about the data and discussion blocks. We recommend you to create a separate document and answer them there.
+> - Along the lessons you will find specific questions about the data and discussion blocks. We recommend you to create a separate document and write your answers there.
 > - For the analysis, we recommend you to create a directory, ie. `viral_metagenomics_course`, and work from there. Each of the steps will have its own directory within the main one. At the end you should end up with a structure similar to the one below.
 ~~~
 # create the directory and move to it
