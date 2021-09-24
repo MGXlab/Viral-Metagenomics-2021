@@ -45,14 +45,14 @@ $ bash Miniconda3-latest-MacOSX-x86_64.sh
 ~~~
 
 #### Create environment
-After installing conda, follow steps below to download the dependencies file `workshop_env.yaml` and create a working environment with it.
+After installing conda, follow steps below to create a working environment with the dependencies.
 
 ~~~
-# download the dependencies file
-$ wget https://raw.githubusercontent.com/MGXlab/Viral-Metagenomics-2021/gh-pages/files/workshop_env.yaml
+# install mamba
+$ conda install -c conda-forge mamba
 
 # create the environment
-$ conda env create --name metaviral_workshop -f workshop_env.yaml
+$ mamba create -c conda-forge -c bioconda --name metaviral_workshop biopython pandas numpy seaborn matplotlib spades bowtie2 blast samtools seqtk
 
 # activate the environment
 $ conda activate metaviral_workshop
@@ -60,6 +60,8 @@ $ conda activate metaviral_workshop
 # test the installation
 $ spades.py -h
 ~~~
+
+
 
 ## Download Python scripts
 We will be using some python scripts as well. You can keep them in their folder or move them to other locations, just be aware of the relative path to input and output files. Run `python <script> -h` on any of these scripts (replace `<script>`) to see the help message.
