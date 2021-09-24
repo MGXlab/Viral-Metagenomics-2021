@@ -107,6 +107,3 @@ if __name__ == "__main__":
     print("\n\nShowing reads aligned to the 15 most ubiquitous contigs:\n")
     df_raw.insert(0, "nsamples", nsamples)
     print(df_raw[:15])
-
-print(df_raw[:10])
-print(df_raw.sum(axis=0))
