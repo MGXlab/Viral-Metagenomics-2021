@@ -22,8 +22,14 @@ In this section we will try to get a complete genome from the scaffolds of our b
 We will use SPAdes with the same parameters as in the cross-assembly, but also with `--trusted-contigs` for the binned scaffolds. This time it should take only one or two minutes.
 
 ~~~
+# create a directory 4_re-assembly
+$ mkdir 4_re-assembly
+
+# change the extension of the FASTA file from .fna to .fasta . SPAdes complains otherwise
+$ mv 0_raw-data/F2T1.fna 0_raw-data/F2T1.fasta
+
 # run SPAdes
-$ spades.py --iontorrent --only-assembler --trusted-contigs 3_profiles/scaffolds_corr_90.fasta --careful -s 0_fasta_samples/F2T1.fasta -o 4_re-assembly/spades_output
+$ spades.py --iontorrent --only-assembler --trusted-contigs 3_profiles/scaffolds_corr_90.fasta --careful -s 0_raw-data/F2T1.fasta -o 4_re-assembly/spades_output
 
 # inspect the results by looking at the re-assembled scaffolds identifiers
 $ grep '>' 4_re-assembly/spades_output/scaffolds.fasta | head
@@ -33,13 +39,14 @@ To know if our binned scaffolds are contained in any scaffold of the re-assembly
 
 ~~~
 # build the database
-$ makeblastdb -in 4_re-assembly/reass_scaffolds.fasta -out 4_re-assembly/reass_scaffolds.blastdb -dbtype nucl
+$ mv 4_re-assembly/spades_output/scaffolds.fasta 4_re-assembly/re-scaffolds.fasta
+$ makeblastdb -in 4_re-assembly/re-scaffolds.fasta -out 4_re-assembly/re-scaffolds.blastdb -dbtype nucl
 
 # run BLAST
-blastn -db 4_re-assembly/reass_scaffolds.blastdb -query 3_profiles/scaffolds_corr_90.fasta -out 4_re-assembly/corr_scaffolds_to_reass.txt -outfmt 6
+$ blastn -db 4_re-assembly/re-scaffolds.blastdb -query 3_profiles/scaffolds_corr_90.fasta -out 4_re-assembly/corr_scaffolds_to_re.txt -outfmt 6
 ~~~
 
-Open `4_re-assembly/corr_scaffolds_to_reass.txt` to inspect the results. Each line represents an alignment between a binned scaffold (or **query**, first column) and a re-assembled scaffold from the database (or **subject**, second column). Interesting columns to look at are the **%similarity** (column 3), **alignment length** (column 4), **evalue** (column 11) or **bitscore** (column 12).
+Open `4_re-assembly/corr_scaffolds_to_re.txt` to inspect the results. Each line represents an alignment between a binned scaffold (or **query**, first column) and a re-assembled scaffold from the database (or **subject**, second column). Interesting columns to look at are the **%similarity** (column 3), **alignment length** (column 4), **evalue** (column 11) or **bitscore** (column 12).
 
 If everything went well, you should see that one of re-assembled scaffolds is around ~96Kb and contains most of the scaffolds of our bin. Open the FASTA file, look for that scaffold and Blast it online.
 
