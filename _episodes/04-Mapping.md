@@ -10,7 +10,7 @@ keypoints:
 - "Mapping reads back to the cross-assembly we can know which scaffolds/species are present in the samples."
 ---
 
-To know if a given genomic sequence (a scaffold) obtained via cross-assembly was present in a sample we need to align its sequencing reads back to the cross-assembly. A read aligning to a scaffold indicates that it was used, along with other sequences, to reconstruct this longer fragment. Notice that scaffolds represent species, so a read aligning to a scaffold ultimately means that a given species is present in the sample.
+To know if a given genomic sequence (a scaffold) obtained via cross-assembly was present in a sample we need to align its sequencing reads back to the cross-assembly. A read aligning to a scaffold indicates that it was used, along with other sequences, to reconstruct this longer fragment. Notice that scaffolds represent genomes' species, so a read aligning to a scaffold ultimately means that a given species is present in the sample.
 
 After aligning and counting the reads we can get a table like this. **In which samples would you say that is present each of the scaffolds?**
 
@@ -27,10 +27,10 @@ We usually call **mapping** to the process of aligning millions of short sequenc
 $ mkdir 2_mapping
 
 # index the reference
-$ bowtie2-build 1_cross-assembly/cross_scaffolds.fasta 2_mapping/cross_scaffolds.index
+$ bowtie2-build 1_cross-assembly/cross-scaffolds.fasta 2_mapping/cross_scaffolds.index
 
 # map the reads
-$ bowtie2 -x 2_mapping/cross_scaffolds.index -f -U 0_fasta_samples/all_samples.fasta -S 2_mapping/all_samples_cross.sam
+$ bowtie2 -x 2_mapping/cross_scaffolds.index -f -U all_samples.fasta -S 2_mapping/all_samples_cross.sam
 ~~~
 
 >## Discussion: Number of reads aligned
@@ -49,12 +49,13 @@ $ head 2_mapping/all_samples_cross.sam
 $ tail 2_mapping/all_samples_cross.sam
 ~~~
 
-What a mess the alignments section, isn't it? Important columns for us are column 1 or `QNAME`, with the read identifier; column 2 or `FLAG`, with the  describing the nature of the mapping; column 3 or `RNAME`, with the reference where the read aligned; column 4 or `POS`, with the position where the reads aligned in the reference; and column 5 or `MAPQ`, with an estimation of how likely is the alignment.
+What a mess the alignments section, isn't it? Important columns for us are column 1 or `QNAME`, with the read identifier; column 2 or `FLAG`, describing the nature of mapping and read; column 3 or `RNAME`, with the reference where the read aligned; column 4 or `POS`, with the position where the reads aligned in the reference; and column 5 or `MAPQ`, with an estimation of how likely is the alignment.
 
 Now we are going to convert the SAM file to its more efficient, binary form, the **BAM** format. This binary form is required in downstream analyses to quickly access the huge amount of information in the file. Furthermore, the reads must be sorted by the position where they map in the references. We will use the Samtools ([Li H et al., 2009](https://academic.oup.com/bioinformatics/article/25/16/2078/204688)) suite for this, specifically, its `view` and `sort` programs. During the conversion we will use parameters `-h` to keep the header and `-F 4` to discard unmapped reads, flagged with a `4` in the `FLAG` column. Last, BAM files need to be indexed, we will use the `index` program for it.
 
 ~~~
 # convert to BAM
+$ cd 2_mapping/
 $ samtools view -h -F 4 -O BAM -o all_samples_cross.bam all_samples_cross.sam
 
 # sort the alignments in the BAM file
@@ -65,6 +66,6 @@ $ samtools index all_samples_cross_sorted.bam
 ~~~  
 
 
-At this point we have a BAM file with each read aligned to one scaffold, as in the table at the beginning of the section. In the next section we will create such table and how the the scaffolds are distributed across the samples.
+At this point we have a BAM file with each read aligned to one scaffold, as in the table at the beginning of the section. In the next section we will create such table and investigate how the the scaffolds are distributed across the samples.
 
 {% include links.md %}
